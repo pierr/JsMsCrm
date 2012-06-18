@@ -4,7 +4,8 @@ var Ui = {
 	'disableFieldsCondition': function(){
 		return true;
 	},
-	'disable': function(isDisable = true){
+	'disable': function(_isDisable ){
+		var isDisable = _isDisable || true;
 		for(var i=0, len=Ui.disableFields.length; i < len; i++){
 			Xrm.Page.ui.controls.get(Ui.disableFields[i]).setDisabled(isDisable); 
 		}	
@@ -15,7 +16,8 @@ var Ui = {
 		return true;
 	},
 	/*Hide function, hide all the fields that are in the hiddenfields table.*/
-	"hide": function(isVisible = false){
+	"hide": function(_isVisible){
+		var isVisible = _isVisible || false;
 		for(var i=0, len=Ui.disableFields.length; i < len; i++){
 			Xrm.Page.ui.controls.get("fieldName").setVisible(isVisible);
 		}	
