@@ -22,4 +22,4 @@ var Ui = {
 			Xrm.Page.ui.controls.get("fieldName").setVisible(isVisible);
 		}	
 	},
-}
+};
