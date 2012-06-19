@@ -19,7 +19,7 @@ var Ui = {
 	"hide": function(_isVisible){
 		var isVisible = _isVisible || false;
 		for(var i=0, len=Ui.disableFields.length; i < len; i++){
-			Xrm.Page.ui.controls.get("fieldName").setVisible(isVisible);
+			Xrm.Page.ui.controls.get(Ui.disableFields[i]).setVisible(isVisible);
 		}	
 	},
 };
