@@ -5,7 +5,6 @@ var Ui = {
 	'disableFieldsCondition': function(){
 		return true;
 	},
-	
 	'disable': function(_isDisable ){
 		if(Ui.disableFieldsCondition){
 		var isDisable = _isDisable || true;
