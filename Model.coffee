@@ -133,7 +133,7 @@ class Products
     #product.save() for product in @products_list
     true
   render: ->
-    _html = "<table><thead><tr><th>Id</th><th>Reference</th><th>Label</th><th>Price</th></tr></thead><tbody"
+    _html = "<table class='.table-bordered'><thead><tr><th>Id</th><th>Reference</th><th>Label</th><th>Price</th></tr></thead><tbody"
     _html += product.render() for product in @products_list  
     _html +="</tbody></table>"
     $('#ProductsLoading').html _html

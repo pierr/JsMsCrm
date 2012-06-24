@@ -67,15 +67,26 @@
       <!-- Example row of columns -->
       <div class="row">
         <div class="span4">
-          <h2>Heading</h2>
-           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
+          <h2>Chargement de Produits aléatoire</h2>
+           <p>Afin de charger des produits en masse, je vous propose de charger par chaque clique sur ce bouton 1000 produits en mémoire.</p>
+          <p><a class="btn" id="fillProducts" href="#">Générer 1000 produits &raquo;</a>  <a class="btn" id="renderProducts" href="#"><i class="icon icon-print"></i> Afficher &raquo;</a></p>
         </div>
         <div class="span4">
-          <h2>Heading</h2>
-           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
-       </div>
+          <h2>Gestion de la mémoire locale.</h2>
+           <p>Voici une série de trois boutons permettant différentes actions: <br />
+            <ul>
+              <li>Sauvegarde des objets en mémoire</li>
+              <li>Chargement des objets en mémoire.</li>
+              <li>Supression des objets en mémoire.</li>
+            </ul>
+           </p>
+          <p>
+          <div class="btn-group">
+            <button class="btn btn-success" id="saveLocal"><i class="icon-white icon-hdd"></i> Sauvegarde</button>
+            <button class="btn btn-info" id="loadLocal"><i class="icon-white icon-repeat"></i> Chargement</button>
+            <button class="btn btn-inverse" id="deleteLocal"><i class="icon-white icon-trash"></i> Supression</button>
+          </div>       
+        </div>
         <div class="span4" id="ProductsLoading">
           
         </div>
