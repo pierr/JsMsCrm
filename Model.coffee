@@ -131,6 +131,9 @@ class Products
     localStorage.setItem @system_name, JSON.stringify(@)
     #product.save() for product in @products_list
     true
+  remove: ->
+    localStorage.removeItem @system_name
+    true
   ###Get an alea product.###
   getAleaProduct: ->
     aHelper = new AleaHelper();

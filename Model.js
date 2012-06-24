@@ -232,6 +232,11 @@
       return true;
     };
 
+    Products.prototype.remove = function() {
+      localStorage.removeItem(this.system_name);
+      return true;
+    };
+
     /*Get an alea product.
     */
 
