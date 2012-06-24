@@ -152,7 +152,7 @@ class Products
     a = JSON.parse(localStorage.getItem(@system_name))
     @system_name = a.system_name
     @name = a.name
-    @products_list = a.products_list
+    @products_list.push( new Product(product.id, product.reference, product.label, product.price, product.currency) ) for product in a.products_list
     true
 
 Page =  {

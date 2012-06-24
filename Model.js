@@ -18,8 +18,7 @@
 }
 */
 
-
- var AleaHelper, Page, Product, Products, getAleaProduct, p, product1, product2, product3, product4, product5, product6, product7;
+var AleaHelper, Page, Product, Products, getAleaProduct, p, product1, product2, product3, product4, product5, product6, product7;
 
   Product = (function() {
     /*  Constructor of the product class.
@@ -269,11 +268,15 @@
 
 
     Products.prototype.loadProductFromLocalStorage = function() {
-      var a;
+      var a, product, _i, _len, _ref;
       a = JSON.parse(localStorage.getItem(this.system_name));
       this.system_name = a.system_name;
       this.name = a.name;
-      this.products_list = a.products_list;
+      _ref = a.products_list;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        product = _ref[_i];
+        this.products_list.push(new Product(product.id, product.reference, product.label, product.price, product.currency));
+      }
       return true;
     };
 
@@ -319,3 +322,4 @@
   p.products_list.push(product6);
 
   p.products_list.push(product7);
+
