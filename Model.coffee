@@ -107,6 +107,7 @@ getAleaProduct=->
 ###
 class Products
   constructor: (@name) ->
+    @system_name = "products"
     @name = "Products "+ new AleaHelper().newGuid()
     @products_list = [] 
   
@@ -127,14 +128,23 @@ class Products
     @name
   
   save: ->
-    product.save() for product in @products_list
+    localStorage.setItem @system_name, JSON.stringify(@)
+    #product.save() for product in @products_list
     true
   ###Get an alea product.###
   getAleaProduct: ->
     aHelper = new AleaHelper();
-    new Product aHelper.newGuid(), aHelper.randomNumberAsText(), aHelper.randomText(20), aHelper.randomNumberAsText(2), '$'  
- 
+    new Product aHelper.newGuid(), aHelper.randomNumberAsText(), aHelper.randomText(20), aHelper.randomNumberAsText(2), '$'
+  loadProductFromLocalStorage: ->
+    a = JSON.parse(localStorage.getItem(@system_name))
+    @system_name = a.system_name
+    @name = a.name
+    @products_list = a.products_list
+    true
 
+Page =  {
+	"Products": new Products().fillWithRandomProducts()
+};
 
 ###
 Generation and tests of instances.

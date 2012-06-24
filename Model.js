@@ -20,7 +20,7 @@
 
 
 (function() {
-  var AleaHelper, Product, Products, getAleaProduct, p, product1, product2, product3, product4, product5, product6, product7;
+  var AleaHelper, Page, Product, Products, getAleaProduct, p, product1, product2, product3, product4, product5, product6, product7;
 
   Product = (function() {
     /*  Constructor of the product class.
@@ -190,6 +190,7 @@
 
     function Products(name) {
       this.name = name;
+      this.system_name = "products";
       this.name = "Products " + new AleaHelper().newGuid();
       this.products_list = [];
     }
@@ -227,12 +228,7 @@
     };
 
     Products.prototype.save = function() {
-      var product, _i, _len, _ref;
-      _ref = this.products_list;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        product = _ref[_i];
-        product.save();
-      }
+      localStorage.setItem(this.system_name, JSON.stringify(this));
       return true;
     };
 
@@ -246,9 +242,22 @@
       return new Product(aHelper.newGuid(), aHelper.randomNumberAsText(), aHelper.randomText(20), aHelper.randomNumberAsText(2), '$');
     };
 
+    Products.prototype.loadProductFromLocalStorage = function() {
+      var a;
+      a = JSON.parse(localStorage.getItem(this.system_name));
+      this.system_name = a.system_name;
+      this.name = a.name;
+      this.products_list = a.products_list;
+      return true;
+    };
+
     return Products;
 
   })();
+
+  Page = {
+    "Products": new Products().fillWithRandomProducts()
+  };
 
   /*
   Generation and tests of instances.
