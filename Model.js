@@ -292,7 +292,7 @@ var AleaHelper, Page, Product, Products, getAleaProduct, p, product1, product2, 
   Generation and tests of instances.
   */
 
-
+/*
   product1 = new Product("1111111", "1111111A", "Produit1", "99", '$');
 
   product2 = new Product("2222222", "2222222B", "Produit2", "99", '$');
@@ -306,10 +306,10 @@ var AleaHelper, Page, Product, Products, getAleaProduct, p, product1, product2, 
   product6 = new Product("6666666", "6666666F", "Produit6", "99", '$');
 
   product7 = new Product("7777777", "7777777G", "Produit7", "99", '$');
-
+*/
   p = new Products;
 
-  p.products_list.push(product1);
+  /*p.products_list.push(product1);
 
   p.products_list.push(product2);
 
@@ -322,4 +322,4 @@ var AleaHelper, Page, Product, Products, getAleaProduct, p, product1, product2, 
   p.products_list.push(product6);
 
   p.products_list.push(product7);
-
+*/
