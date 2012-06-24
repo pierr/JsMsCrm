@@ -1,3 +1,4 @@
+
 ### Class which is describing a product and the way it is rendered.
  {
 	"classname": "Product", 
@@ -27,17 +28,6 @@ class Product
   ### Save the product in the local storage. ###
   save: ->
 
-
-	  
-#Creation of many products.
-product1 = new Product "1111111", "1111111A", "Produit1", "99", '$'
-product2 = new Product "2222222", "2222222B", "Produit2", "99", '$'
-product3 = new Product "3333333", "3333333C", "Produit3", "99", '$'
-product4 = new Product "4444444", "4444444D", "Produit4", "99", '$'
-product5 = new Product "5555555", "5555555E", "Produit5", "99", '$'
-product6 = new Product "6666666", "6666666F", "Produit6", "99", '$'
-product7 = new Product "7777777", "7777777G", "Produit7", "99", '$'
-
 ###
 Alea helper class, is able to return new Guid.
 ###
@@ -51,7 +41,7 @@ class AleaHelper
   ###
   Return a new Guid generated in js.
   ###
-  NewGuid: ->
+  newGuid: ->
     @S4()+@S4()+"-"+@S4()+"-"+@S4()+"-"+@S4()+"-"+@S4()+@S4()+@S4()
   
   ###
@@ -67,12 +57,14 @@ class AleaHelper
   ###
   randomInt:(low, high)->
     Math.floor(Math.random()*(high-low+1)) + low
+ 
   ###
   Given  : str is a nonempty string 
   Returns: a random character from the string 
   ###
   randomChar:(str='azertyuiopqsdfghjklmwxcvbn')->
     str.charAt(@randomInt(0, str.length-1))
+ 
   ###
   Given  : str is a nonempty string 
   Returns: a random character from the string 
@@ -81,6 +73,15 @@ class AleaHelper
     text = ""
     for i in [0...@length]
       text += @randomChar()
+    text
+  ###
+  Given  : str is a nonempty string 
+  Returns: a random character from the string 
+  ###
+  randomNumberAsText:(@length=10)->
+    text = ""
+    for i in [0...@length]
+      text += @randomInt(0,9)
     text
 
   ###
@@ -92,15 +93,9 @@ class AleaHelper
 
 
 ###Get an alea product.###
-getAleaProduct:->
-  new Product(new AleaHelper().NewGuid()) 
-###
-Methodes 
-###
-aleaGuid:->
-aleaReference:->
-aleaLabel:->
-aleaPrice:->
+getAleaProduct=->
+  aHelper = new AleaHelper();
+  new Product aHelper.newGuid(), aHelper.randomNumberAsText(), aHelper.randomText(20), aHelper.randomNumberAsText(2), '$' 
 
 ### Class which is describing a product and the way it is rendered.
 {
@@ -111,7 +106,8 @@ aleaPrice:->
 }
 ###
 class Products
-  constructor: () ->
+  constructor: (@name) ->
+    @name = "Products "+ new AleaHelper().newGuid()
     @products_list = [] 
   
   add:(product)->
@@ -124,6 +120,36 @@ class Products
     text
   log: ->
     console.log @print()
+  ###Build a random products array.###
+  fillWithRandomProducts:(nbProducts = 1000)->
+    for i in [0...nbProducts]
+      @add @getAleaProduct()
+    @name
+  
+  save: ->
+    product.save() for product in @products_list
+    true
+  ###Get an alea product.###
+  getAleaProduct: ->
+    aHelper = new AleaHelper();
+    new Product aHelper.newGuid(), aHelper.randomNumberAsText(), aHelper.randomText(20), aHelper.randomNumberAsText(2), '$'  
+ 
+
+
+###
+Generation and tests of instances.
+###    
+
+#Creation of many products.
+product1 = new Product "1111111", "1111111A", "Produit1", "99", '$'
+product2 = new Product "2222222", "2222222B", "Produit2", "99", '$'
+product3 = new Product "3333333", "3333333C", "Produit3", "99", '$'
+product4 = new Product "4444444", "4444444D", "Produit4", "99", '$'
+product5 = new Product "5555555", "5555555E", "Produit5", "99", '$'
+product6 = new Product "6666666", "6666666F", "Produit6", "99", '$'
+product7 = new Product "7777777", "7777777G", "Produit7", "99", '$'
+
+#Generation of a products.
 p = new Products
 p.products_list.push product1
 p.products_list.push product2

@@ -20,7 +20,7 @@
 
 
 (function() {
-  var AleaHelper, Product, Products, p, product1, product2, product3, product4, product5, product6, product7;
+  var AleaHelper, Product, Products, getAleaProduct, p, product1, product2, product3, product4, product5, product6, product7;
 
   Product = (function() {
     /*  Constructor of the product class.
@@ -60,20 +60,6 @@
 
   })();
 
-  product1 = new Product("1111111", "1111111A", "Produit1", "99", '$');
-
-  product2 = new Product("2222222", "2222222B", "Produit2", "99", '$');
-
-  product3 = new Product("3333333", "3333333C", "Produit3", "99", '$');
-
-  product4 = new Product("4444444", "4444444D", "Produit4", "99", '$');
-
-  product5 = new Product("5555555", "5555555E", "Produit5", "99", '$');
-
-  product6 = new Product("6666666", "6666666F", "Produit6", "99", '$');
-
-  product7 = new Product("7777777", "7777777G", "Produit7", "99", '$');
-
   /*
   Alea helper class, is able to return new Guid.
   */
@@ -97,7 +83,7 @@
     */
 
 
-    AleaHelper.prototype.NewGuid = function() {
+    AleaHelper.prototype.newGuid = function() {
       return this.S4() + this.S4() + "-" + this.S4() + "-" + this.S4() + "-" + this.S4() + "-" + this.S4() + this.S4() + this.S4();
     };
 
@@ -151,6 +137,22 @@
     };
 
     /*
+      Given  : str is a nonempty string 
+      Returns: a random character from the string
+    */
+
+
+    AleaHelper.prototype.randomNumberAsText = function(length) {
+      var i, text, _i, _ref;
+      this.length = length != null ? length : 10;
+      text = "";
+      for (i = _i = 0, _ref = this.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
+        text += this.randomInt(0, 9);
+      }
+      return text;
+    };
+
+    /*
       Given  : list is a nonempty list (array) 
       Returns: a random item from the list
     */
@@ -164,35 +166,31 @@
 
   })();
 
-  ({
-    /*Get an alea product.
-    */
+  /*Get an alea product.
+  */
 
-    getAleaProduct: function() {
-      return new Product(new AleaHelper().NewGuid());
-    },
-    /*
-    Methodes
-    */
 
-    aleaGuid: function() {},
-    aleaReference: function() {},
-    aleaLabel: function() {},
-    aleaPrice: function() {}
-    /* Class which is describing a product and the way it is rendered.
-    {
-      "classname": "Products", 
-      "params": { 
-        {"paramName": "products_list", "paramType": "Array of Product", "paramDescription": "Container of all the products."}
-      }
+  getAleaProduct = function() {
+    var aHelper;
+    aHelper = new AleaHelper();
+    return new Product(aHelper.newGuid(), aHelper.randomNumberAsText(), aHelper.randomText(20), aHelper.randomNumberAsText(2), '$');
+  };
+
+  /* Class which is describing a product and the way it is rendered.
+  {
+    "classname": "Products", 
+    "params": { 
+      {"paramName": "products_list", "paramType": "Array of Product", "paramDescription": "Container of all the products."}
     }
-    */
+  }
+  */
 
-  });
 
   Products = (function() {
 
-    function Products() {
+    function Products(name) {
+      this.name = name;
+      this.name = "Products " + new AleaHelper().newGuid();
       this.products_list = [];
     }
 
@@ -213,9 +211,63 @@
       return console.log(this.print());
     };
 
+    /*Build a random products array.
+    */
+
+
+    Products.prototype.fillWithRandomProducts = function(nbProducts) {
+      var i, _i;
+      if (nbProducts == null) {
+        nbProducts = 1000;
+      }
+      for (i = _i = 0; 0 <= nbProducts ? _i < nbProducts : _i > nbProducts; i = 0 <= nbProducts ? ++_i : --_i) {
+        this.add(this.getAleaProduct());
+      }
+      return this.name;
+    };
+
+    Products.prototype.save = function() {
+      var product, _i, _len, _ref;
+      _ref = this.products_list;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        product = _ref[_i];
+        product.save();
+      }
+      return true;
+    };
+
+    /*Get an alea product.
+    */
+
+
+    Products.prototype.getAleaProduct = function() {
+      var aHelper;
+      aHelper = new AleaHelper();
+      return new Product(aHelper.newGuid(), aHelper.randomNumberAsText(), aHelper.randomText(20), aHelper.randomNumberAsText(2), '$');
+    };
+
     return Products;
 
   })();
+
+  /*
+  Generation and tests of instances.
+  */
+
+
+  product1 = new Product("1111111", "1111111A", "Produit1", "99", '$');
+
+  product2 = new Product("2222222", "2222222B", "Produit2", "99", '$');
+
+  product3 = new Product("3333333", "3333333C", "Produit3", "99", '$');
+
+  product4 = new Product("4444444", "4444444D", "Produit4", "99", '$');
+
+  product5 = new Product("5555555", "5555555E", "Produit5", "99", '$');
+
+  product6 = new Product("6666666", "6666666F", "Produit6", "99", '$');
+
+  product7 = new Product("7777777", "7777777G", "Produit7", "99", '$');
 
   p = new Products;
 
