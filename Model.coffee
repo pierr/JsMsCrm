@@ -26,7 +26,8 @@ class Product
   log: ->
     console.log @print()
   ### Save the product in the local storage. ###
-  save: ->
+  render: ->
+    "<tr><td>#{@id}</td><td>#{@reference}</td><td>#{@label}</td><td>#{@price}<div class='currendy'>#{@currency}</div></td></tr>"
 
 ###
 Alea helper class, is able to return new Guid.
@@ -131,13 +132,22 @@ class Products
     localStorage.setItem @system_name, JSON.stringify(@)
     #product.save() for product in @products_list
     true
+  render: ->
+    _html = "<table><thead><tr><th>Id</th><th>Reference</th><th>Label</th><th>Price</th></tr></thead><tbody"
+    _html += product.render() for product in @products_list  
+    _html +="</tbody></table>"
+    $('#ProductsLoading').html _html
+  ###Remove the products from###
   remove: ->
     localStorage.removeItem @system_name
     true
+  
   ###Get an alea product.###
   getAleaProduct: ->
     aHelper = new AleaHelper();
     new Product aHelper.newGuid(), aHelper.randomNumberAsText(), aHelper.randomText(20), aHelper.randomNumberAsText(2), '$'
+
+  ###Load products from local storage.###
   loadProductFromLocalStorage: ->
     a = JSON.parse(localStorage.getItem(@system_name))
     @system_name = a.system_name

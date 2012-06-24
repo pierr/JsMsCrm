@@ -1,0 +1,14 @@
+CACHE MANIFEST
+
+# Build 2012-06-24
+
+CACHE:
+Model.js
+Model.coffee
+MobileProto.html
+assets/*
+
+NETWORK:
+http://*
+https://*
+file://*

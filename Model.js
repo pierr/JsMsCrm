@@ -19,8 +19,7 @@
 */
 
 
-(function() {
-  var AleaHelper, Page, Product, Products, getAleaProduct, p, product1, product2, product3, product4, product5, product6, product7;
+ var AleaHelper, Page, Product, Products, getAleaProduct, p, product1, product2, product3, product4, product5, product6, product7;
 
   Product = (function() {
     /*  Constructor of the product class.
@@ -54,7 +53,9 @@
     */
 
 
-    Product.prototype.save = function() {};
+    Product.prototype.render = function() {
+      return "<tr><td>" + this.id + "</td><td>" + this.reference + "</td><td>" + this.label + "</td><td>" + this.price + "<div class='currendy'>" + this.currency + "</div></td></tr>";
+    };
 
     return Product;
 
@@ -232,6 +233,22 @@
       return true;
     };
 
+    Products.prototype.render = function() {
+      var product, _html, _i, _len, _ref;
+      _html = "<table><thead><tr><th>Id</th><th>Reference</th><th>Label</th><th>Price</th></tr></thead><tbody";
+      _ref = this.products_list;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        product = _ref[_i];
+        _html += product.render();
+      }
+      _html += "</tbody></table>";
+      return $('#ProductsLoading').html(_html);
+    };
+
+    /*Remove the products from
+    */
+
+
     Products.prototype.remove = function() {
       localStorage.removeItem(this.system_name);
       return true;
@@ -246,6 +263,10 @@
       aHelper = new AleaHelper();
       return new Product(aHelper.newGuid(), aHelper.randomNumberAsText(), aHelper.randomText(20), aHelper.randomNumberAsText(2), '$');
     };
+
+    /*Load products from local storage.
+    */
+
 
     Products.prototype.loadProductFromLocalStorage = function() {
       var a;
@@ -298,5 +319,3 @@
   p.products_list.push(product6);
 
   p.products_list.push(product7);
-
-}).call(this);

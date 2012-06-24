@@ -1,3 +1,4 @@
+
 JsMsCrm
 =======
 
@@ -7,3 +8,6 @@ JsMsCrm
 
 
 ##This project also contains a test for a mobile local storage.
+##Intresting links
+[http://html5doctor.com/go-offline-with-application-cache/]
+[https://github.com/remy/html5demos/blob/master/html5demo.appcache]
