@@ -62,6 +62,7 @@ var EquipementListView = Backbone.View.extend({
     },
     render: function () {
         this.model.forEach(this.addOne, this);
+        return this;
     }
 
 });
@@ -102,7 +103,7 @@ var EquipementListView = Backbone.View.extend({
         var es = new window.Equipements();
         es.reset(window.equipementsData);
         window.maisonsView = new EquipementListView({model : es});
-       $('#container').append(maisonsView.render().el);
+       $('#container').append(window.maisonsView.render().el);
         
     });
 
