@@ -2,6 +2,7 @@
     window.Equipement = Backbone.Model.extend({
         defaults: {
             systemname: "equipement",
+            name: "Maison",
             id: 0,
             description: "Description",
             nbChambres : 0,
@@ -35,7 +36,7 @@
 
     window.EquipementView = Backbone.View.extend({
         template: "#equipement-template",
-        tag: 'tr',
+        tag: 'li',
         className: 'equipement',
 
         initialize: function() {
@@ -54,7 +55,7 @@
     });
 
 var EquipementListView = Backbone.View.extend({
-    tagName: 'div',
+    tagName: 'ul',
     className: 'equipements',
     addOne: function (equipement) {
         var equipementView = new EquipementView({ model: equipement });
@@ -96,14 +97,14 @@ var EquipementListView = Backbone.View.extend({
     $(document).ready(function() {
         var p = new Equipement();
         var ev = new EquipementView({model: p});
-        $('#container').append(ev.render().el);
+       // $('#maisons@').append(ev.render().el);
        console.log("Maisons")
         console.log(window.Maisons);
         console.log("End maisons");
         var es = new window.Equipements();
         es.reset(window.equipementsData);
         window.maisonsView = new EquipementListView({model : es});
-       $('#container').append(window.maisonsView.render().el);
+       $('#maisons').append(window.maisonsView.render().el);
         
     });
 
