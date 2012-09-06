@@ -1,0 +1,27 @@
+Backbone Tunes: A backbone.js demo
+==================================
+
+- Displays a list of available albums and their tracks
+- Allows queueing albums for playback
+- Plays the queue, one track at a time
+
+USAGE
+=====
+
+This version of the application runs as a static site and
+does not require any Ruby web server.
+
+To use, drag "public/index.html" to your browser.
+
+(The preferred way is to run a dynamic webserver. See 9-final for
+details).
+
+CHANGES
+=======
+
+To work as a static site, the following changes were made:
+
+* public/index.html: Call window.library.reset() with JSON data.
+* public/js/Tunes.js: Explicitly call App.home() to load the router.
+* CSS: Use relative paths for images.
+

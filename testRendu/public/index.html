@@ -1,0 +1,130 @@
+<!doctype html>
+
+<!--[if lt IE 7]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+
+    <title>Equipement</title>
+    <meta name="author" content="Pierre Besson <pierre.besson@kleegroup.com>">
+
+    <link rel="stylesheet" href="style/screen.css" media="screen, projection">
+    <link rel="stylesheet" href="style/fancypants.css" media="screen, projection">
+
+    <script src="js/vendor/modernizr-1.6.min.js"></script>
+    <script src="js/vendor/jquery-1.5.1.min.js"></script>
+    <script src="js/vendor/underscore.js"></script>
+    <script src="js/vendor/backbone.js"></script>
+    <script src="js/Equipement.js"></script>
+
+    <script type="text/template" id="library-template">
+      <h1>Equipement</h1>
+      <ul class="equipements"></ul>
+    </script>
+
+    <script type="text/template" id="playlist-template">
+      <h1>Playlist</h1>
+      <nav>
+        <button class="control play">Play</button>
+        <button class="control pause">Pause</button>
+        <button class="control prev">Prev</button>
+        <button class="control next">Next</button>
+      </nav>
+      <ul class="albums">
+      </ul>
+    </script>
+
+    <script type="text/template" id="album-template">
+      <button class="queue add"><img src="images/add.png"></button>
+      <button class="queue remove"><img src="images/remove.png"></button>
+      <span class="album-title"><%= title %></span>&nbsp;&nbsp;
+      <span class="artist-name"><%= artist %></span>
+      <ol class="tracks">
+        <% _.each(tracks, function(track) { %>
+          <li><%= track.title %></li>
+        <% }); %>
+      </ol>
+    </script>
+
+    <script type="application/javascript">
+      jQuery(function() {
+        window.library.reset([{
+            "title": "Bound - Zen Bound Ingame Music",
+            "artist": "Ghost Monkey",
+            "tracks": [{
+                "title": "Care",
+                "url": "music/blue.mp3"
+            },
+            {
+                "title": "Rope and Wood",
+                "url": "music/jazz.mp3"
+            },
+            {
+                "title": "Problem Solvent",
+                "url": "music/minimalish.mp3"
+            },
+            {
+                "title": "Unpaint My Skin",
+                "url": "music/slower.mp3"
+            },
+            {
+                "title": "Nostalgia",
+                "url": "music/blue.mp3"
+            },
+            {
+                "title": "Interludum",
+                "url": "music/jazz.mp3"
+            },
+            {
+                "title": "Grind",
+                "url": "music/minimalish.mp3"
+            },
+            {
+                "title": "Diagrams",
+                "url": "music/slower.mp3"
+            },
+            {
+                "title": "Hare",
+                "url": "music/blue.mp3"
+            },
+            {
+                "title": "Carefree",
+                "url": "music/jazz.mp3"
+            },
+            {
+                "title": "Tunnel At The End Of Light",
+                "url": "music/minimalish.mp3"
+            }]
+        },
+        {
+            "title": "Where the Earth Meets the Sky",
+            "artist": "Tom Heasley",
+            "tracks": [{
+                "title": "Ground Zero",
+                "url": "music/blue.mp3"
+            },
+            {
+                "title": "Western Sky",
+                "url": "music/jazz.mp3"
+            },
+            {
+                "title": "Monterey Bay",
+                "url": "music/minimalish.mp3"
+            },
+            {
+                "title": "Where the Earth Meets the Sky",
+                "url": "music/slower.mp3"
+            }]
+        }]);
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="container">
+    </div>
+  </body>
+</html>
