@@ -24,7 +24,7 @@
        <a href="#"><%= systemname %>  <%= name %> <%= nbChambreDisponible %> <%= description %> </a>
     </script>
     <script type="text/template" id="reservationDay-template">
-       <td > <button  class=<%= singleCssClass %> href="#"><%= nbChambreDisponible %> <%= date.toString() %>  </button></td>
+       <td rel="popover" id=<%= id%>> <button  class=<%= singleCssClass %> href="#"><%= nbChambreDisponible %> <%= date.toString() %>  </button></td>
     </script>
   </head>
 

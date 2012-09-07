@@ -173,6 +173,13 @@
         },
         render: function () {
             // Get all the equipements ids.
+            var dates = _.uniq(this.model.pluck("date"));
+                $(this.el).append('<th>');
+                dates.forEach(function (date) {
+                 $(this.el).append(date.toString())         
+                }, this);
+                 $(this.el).append('</th>');
+            // Get all the equipements ids.
             var ids = _.uniq(this.model.pluck("equipementId"));
             
             // Create a line in the table for all the equipements.             
