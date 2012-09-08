@@ -166,7 +166,8 @@
     });
 
     window.ReservationDayListView = Backbone.View.extend({
-        className: 'equipements nav nav-tabs nav-stacked',
+        className: 'equipements table table-striped',
+        tagName: 'div',
         addOne: function (reservation) {
             var reservationView = new ReservationDayView({ model: reservation });
             $(this.el).append(reservationView.render().el);
@@ -174,14 +175,16 @@
         render: function () {
             // Get all the equipements ids.
             var dates = _.uniq(this.model.pluck("date"));
-                $(this.el).append('<tr>');
-                dates.forEach(function (date) {
-                 $(this.el).append('<th>' + date.getDate() +'</th>')
-                }, this);
-                 $(this.el).append('</tr>');
+            var html = '<thead><tr>';
+            dates.forEach(function (date) {
+                html += '<th>' + date.getDate() +'</th>';
+            }, this);
+            html += '</tr></thead>';
+             $(this.el).append(html);
+  //          $(this.el).append('<tbody>')
+
             // Get all the equipements ids.
             var ids = _.uniq(this.model.pluck("equipementId"));
-            
             // Create a line in the table for all the equipements.             
             ids.forEach(function (id) {
                 $(this.el).append('<tr>');
