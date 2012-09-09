@@ -222,8 +222,12 @@
         },
         reserve: function(){
             if(!this.model.reserve()){
-//                var a = new Alert();
-            $('div#messages').html(new AlertView({model: new Alert()}).render().el);    
+                var a = new Alert({
+                    'type': 'error',
+                    'tite': 'Erreur',
+                    'content': 'The room is full. Please choose another.'
+                });
+                $('div#messages').html(new AlertView({model: a}).render().el);    
                 // $('div#messages').html(new AlertView({model: new Alert({'title': 'Error', 'content': 'This room is full. Please choose antoher one.', 'type': 'info'})}));
             }
             this.render();
