@@ -26,6 +26,13 @@
     <script type="text/template" id="reservationDay-template">
        <td  rel="popover" id=<%= id%>> <button  class='reserve btn <%= singleCssClass %>' href="#"><%= nbChambreDisponible %> <br /> <%= date.getDate() %>  </button></td>
     </script>
+    <script type="text/template" id="alert-template">
+       <div class='alert  alert-block'>
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <h4><%= title %></h4>
+          <%= content =>
+        </div>
+    </script>
   </head>
 
   <body>
@@ -60,6 +67,7 @@
         </div>
         <div class="span10">
           <h1>Liste des maisons disponibles</h1>
+          <div id="messages"></div>
           <p class="lead">
               Cette page a pour but de trouver l'ensemble des maisons disponibles.
           </p>

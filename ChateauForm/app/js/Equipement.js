@@ -30,6 +30,32 @@
         { systemname: "equipement", id: 3, description: "Description 3", nbChambres: 1, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv" }
     ];
 
+    //Alert Model.
+    // Attributes;
+    // Name => Alert
+    //content => Alert content.
+    //Type in {"none = Warning,  error, success, info"}
+    window.Alert = Backbone.Model.extend({
+        // defaults values
+        defaults: {
+            title: "Alerte",
+            content: "Contenu de l \'alerte",
+            type: ""
+        },
+        initialize: function () {
+            this.processCssClass();
+        },
+        //Find the correct css class to apply to the alert.
+        processCssClass: function(){
+            var alertType = this.get('type');
+            var cssClass = alertType === 'error' ? 'alert-error' : ( alertType === 'success' ? 'alert-success':(alertType === 'info' ? 'alert-info' : '' ));
+            this.set({'cssClass': cssClass});
+        }
+    });
+
+
+
+    //Reservation Dat Model.
     window.ReservationDay = Backbone.Model.extend({
         defaults: {
             systemname: "reservation",
@@ -47,6 +73,9 @@
             typeEquipement: "Seminaire",
             singleCssClass: 'success'
         },
+        initialize: function () {
+            this.processSingleCssClass();
+        },
         processSingleCssClass: function () {
             var nbChb = this.get('nbChambreDisponible');
             var avg = this.get('nbChambres')/2;
@@ -56,18 +85,25 @@
         reserve: function(){
             var nbCD = this.get('nbChambreDisponible');
             var nbCR = this.get('nbChambresReserves');
-            this.set({ 'nbChambresReserves': nbCR +1 , 'nbChambreDisponible' : (nbCD - 1)});
-            this.processSingleCssClass();  
+            if(nbCD == 0){
+                return false;
+            }else{
+                this.set({ 'nbChambresReserves': nbCR +1 , 'nbChambreDisponible' : (nbCD - 1)});
+                this.processSingleCssClass();  
+                return true;
+            }
         }
 
     });
-
+    //Collection de reservation day.
     window.ReservationDays = Backbone.Collection.extend({
         model: ReservationDay,
         url: "/equipements"
     });
 
-    /*All the day*/
+
+
+    /*All the day data*/
     window.reservationDayData = [
         { systemname: "equipement", date: new Date("1/10/2012"), id: 0, equipementId: 0, description: "Description 0", nbChambres: 1, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 0, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv" },
         { systemname: "equipement", date: new Date("2/10/2012"), id: 1, equipementId: 0, description: "Description 0 1", nbChambres: 1, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv" },
@@ -135,6 +171,22 @@
         }
     });
 
+    window.AlertView = Backbone.View.extend({
+        tagName: 'div',
+        template: "#alert-template",
+        initialize: function () {
+            _.bindAll(this, 'render');
+            this.initializeTemplate();
+        },
+        initializeTemplate: function () {
+            this.template = _.template($(this.template).html());
+        },
+        render: function () {
+            $(this.el).html(this.template(this.model.toJSON()));
+            return this;
+        }
+    });
+
     window.EquipementListView = Backbone.View.extend({
         tagName: 'tbody',
         className: 'equipements nav nav-tabs nav-stacked',
@@ -164,12 +216,16 @@
             this.template = _.template($(this.template).html());
         },
         render: function () {
-            this.model.processSingleCssClass();
+            //this.model.processSingleCssClass();
             $(this.el).html(this.template(this.model.toJSON()));
             return this;
         },
         reserve: function(){
-            this.model.reserve();
+            if(!this.model.reserve()){
+//                var a = new Alert();
+            $('div#messages').html(new AlertView({model: new Alert()}).render().el);    
+                // $('div#messages').html(new AlertView({model: new Alert({'title': 'Error', 'content': 'This room is full. Please choose antoher one.', 'type': 'info'})}));
+            }
             this.render();
         }
 
