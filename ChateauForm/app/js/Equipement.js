@@ -170,7 +170,7 @@
             return this;
         }
     });
-
+    //Alert view.
     window.AlertView = Backbone.View.extend({
         tagName: 'div',
         template: "#alert-template",
@@ -188,7 +188,7 @@
     });
 
     window.EquipementListView = Backbone.View.extend({
-        tagName: 'tbody',
+        tagName: 'ul',
         className: 'equipements nav nav-tabs nav-stacked',
         addOne: function (equipement) {
             var equipementView = new EquipementView({ model: equipement });
@@ -222,15 +222,25 @@
         },
         reserve: function(){
             if(!this.model.reserve()){
-                var a = new Alert({
+                var alert = new Alert({
                     'type': 'error',
-                    'tite': 'Erreur',
+                    'title': 'Erreur',
                     'content': 'The room is full. Please choose another.'
                 });
-                $('div#messages').html(new AlertView({model: a}).render().el);    
-                // $('div#messages').html(new AlertView({model: new Alert({'title': 'Error', 'content': 'This room is full. Please choose antoher one.', 'type': 'info'})}));
+                this.addAlert(alert);
+            } else{
+                var date = this.model.get('date');
+                var alert = new Alert({
+                    'type': 'success',
+                    'title': 'Reservation succeed.',
+                    'content': 'This room has been reserved on: ' + date.getFullYear() +'/' + date.getDate() + '/' + date.getDay() + '.'
+                });
+                this.addAlert(alert);
+                this.render();              
             }
-            this.render();
+        },
+        addAlert: function(alert){
+            $('div#messages').html(new AlertView({model: alert}).render().el);
         }
 
     });
