@@ -52,7 +52,14 @@
             var avg = this.get('nbChambres')/2;
             var cssClass  =  nbChb == 0 ? 'btn-danger' : (nbChb < avg ? 'btn-warning' : 'btn-success') ;
             this.set({ 'singleCssClass': cssClass });
+        },
+        reserve: function(){
+            var nbCD = this.get('nbChambreDisponible');
+            var nbCR = this.get('nbChambresReserves');
+            this.set({ 'nbChambresReserves': nbCR +1 , 'nbChambreDisponible' : (nbCD - 1)});
+            this.processSingleCssClass();  
         }
+
     });
 
     window.ReservationDays = Backbone.Collection.extend({
@@ -118,7 +125,6 @@
             _.bindAll(this, 'render');
             this.initializeTemplate();
         },
-
         initializeTemplate: function () {
             this.template = _.template($(this.template).html());
         },
@@ -150,6 +156,9 @@
             _.bindAll(this, 'render');
             this.initializeTemplate();
         },
+        events: {
+        "click button.reserve": "reserve"
+        },
 
         initializeTemplate: function () {
             this.template = _.template($(this.template).html());
@@ -159,8 +168,9 @@
             $(this.el).html(this.template(this.model.toJSON()));
             return this;
         },
-        processFullnessCssClass: function(){
-            return this.model.isFull() ? 'alert' : 'warning'; 
+        reserve: function(){
+            this.model.reserve();
+            this.render();
         }
 
     });
@@ -175,6 +185,7 @@
         render: function () {
             // Get all the equipements ids.
             var dates = _.uniq(this.model.pluck("date"));
+            console.log("Dates" + dates);
             var html = '<thead><tr>';
             dates.forEach(function (date) {
                 html += '<th>' + date.getDate() +'</th>';
