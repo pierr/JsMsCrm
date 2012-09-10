@@ -82,25 +82,41 @@
             nbChambreDisponible: 0,
             nbChambreDoubleDisponible: 0,
             typeEquipement: "Seminaire",
-            singleCssClass: 'success'
+            singleCssClass: 'success',
+            doubleCssClass: 'success'
         },
         initialize: function () {
-            this.processSingleCssClass();
+            this.processNbChbCssClass(true);
+            this.processNbChbCssClass(false);
         },
-        processSingleCssClass: function () {
-            var nbChb = this.get('nbChambreDisponible');
-            var avg = this.get('nbChambres')/2;
+        processNbChbCssClass: function (isSingle) {
+            var cssClassName = isSingle ? 'singleCssClass' : 'doubleCssClass';
+            var chbDispo = isSingle ? 'nbChambreDisponible' : 'nbChambreDoubleDisponible';
+            var nbChbName = isSingle ? 'nbChambres': 'nbChambreDouble';
+            var nbChb = this.get(chbDispo);
+            var avg = this.get(nbChbName)/2;
             var cssClass  =  nbChb == 0 ? 'btn-danger' : (nbChb < avg ? 'btn-warning' : 'btn-success') ;
-            this.set({ 'singleCssClass': cssClass });
+            if(isSingle){
+                this.set({ 'singleCssClass' : cssClass });
+            } else{
+                this.set({ 'doubleCssClass' : cssClass });
+            }
         },
-        reserve: function(){
-            var nbCD = this.get('nbChambreDisponible');
-            var nbCR = this.get('nbChambresReserves');
+        reserve: function(isSingle){
+            var chbDispo = isSingle ? 'nbChambreDisponible' : 'nbChambreDoubleDisponible';
+            var chbReserved = isSingle ? 'nbChambresReserves' : 'nbChambreDoubleReserves';
+            var nbCD = this.get(chbDispo);
+            var nbCR = this.get(chbReserved);
             if(nbCD == 0){
                 return false;
             }else{
-                this.set({ 'nbChambresReserves': nbCR +1 , 'nbChambreDisponible' : (nbCD - 1)});
-                this.processSingleCssClass();  
+                if(isSingle){
+                    this.set({ 'nbChambresReserves': nbCR +1 , 'nbChambreDisponible' : (nbCD - 1)});
+                }else{
+                    
+                    this.set({ 'nbChambreDoubleReserves': nbCR +1 , 'nbChambreDoubleDisponible' : (nbCD - 1)});
+                }
+                this.processNbChbCssClass(isSingle);  
                 return true;
             }
         }
@@ -218,7 +234,7 @@
 
     window.EquipementListView = Backbone.View.extend({
         tagName: 'ul',
-        className: 'equipements nav nav nav-list',
+        className: 'equipements nav nav-stacked nav-list',
         addOne: function (equipement) {
             var equipementView = new EquipementView({ model: equipement });
             $(this.el).append(equipementView.render().el);
@@ -235,10 +251,13 @@
         template: "#reservationDay-template",
         initialize: function () {
             _.bindAll(this, 'render');
+            this.model.bind('change', this.render);
             this.initializeTemplate();
         },
         events: {
-        "click button.reserve": "reserve"
+        "click a.reserveSingle": "reserveSingle",
+        "click a.reserveDouble": "reserveDouble"
+        
         },
 
         initializeTemplate: function () {
@@ -249,8 +268,14 @@
             $(this.el).html(this.template(this.model.toJSON()));
             return this;
         },
-        reserve: function(){
-            if(!this.model.reserve()){
+        reserveSingle: function(){
+            this.reserve(true);
+        },
+        reserveDouble: function(){
+            this.reserve(false);
+        },
+        reserve: function(isSingle){
+            if(!this.model.reserve(isSingle)){
                 var alert = new Alert({
                     'type': 'error',
                     'title': 'Erreur',
@@ -287,7 +312,7 @@
             console.log("Dates" + dates);
             var html = '<thead><tr>';
             dates.forEach(function (date) {
-                html += '<th>' + date.getDate() +'</th>';
+                html += '<th>' + date.getFullYear() +'/' + date.getDate() + '/' + date.getDay() +'</th>';
             }, this);
             html += '</tr></thead>';
              $(this.el).append(html);
