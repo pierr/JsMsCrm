@@ -12,17 +12,18 @@
             nbChambreDisponible: 0,
             nbChambreDoubleDisponible: 0,
             typeEquipement: "Seminaire",
-            isActive: true,
-            cssClass: 'active'
+            isActive: true
         },
         isFull: function (index) {
             return nbChambreDisponible > 0;
         },
         activate: function(){
             if(this.get('isActive')){
-                this.set({'isActive': false, 'cssClass': '' });
+                this.set({'isActive': false});
+                return false;
             } else{
-                this.set({'isActive': true, 'cssClass': 'active' });
+                this.set({'isActive': true});
+                return true;
             }
         }
     });
@@ -65,6 +66,7 @@
 
 
     //Reservation Dat Model.
+    //Provide a model for the equipement reservation.
     window.ReservationDay = Backbone.Model.extend({
         defaults: {
             systemname: "reservation",
@@ -167,6 +169,7 @@
         template: "#equipement-template",
         initialize: function () {
             _.bindAll(this, 'render');
+            this.model.bind('change', this.render);
             this.initializeTemplate();
         },
         initializeTemplate: function () {
@@ -175,20 +178,30 @@
         events: {
         "click": "activate"
         },
+        processActivateClass: function(){
+            if(this.model.get('isActive')){
+                $(this.el).addClass('active'); 
+            }else{
+                $(this.el).removeClass('active');
+            }
+        },
+
         activate: function(){
             this.model.activate();
-            className = this.model.get('isActive');
-            $(this.el).addClass('active');
-            this.render();
         },
         render: function () {
+            this.processActivateClass();
             $(this.el).html(this.template(this.model.toJSON()));
             return this;
         }
     });
     //Alert view.
+    //Display a message on the page.
+    //Uses a twitter Bootstrap alert.
+    // Model: AlertModel.
     window.AlertView = Backbone.View.extend({
         tagName: 'div',
+        className: 'message',
         template: "#alert-template",
         initialize: function () {
             _.bindAll(this, 'render');
@@ -205,7 +218,7 @@
 
     window.EquipementListView = Backbone.View.extend({
         tagName: 'ul',
-        className: 'equipements nav nav-tabs nav-stacked',
+        className: 'equipements nav nav nav-list',
         addOne: function (equipement) {
             var equipementView = new EquipementView({ model: equipement });
             $(this.el).append(equipementView.render().el);
