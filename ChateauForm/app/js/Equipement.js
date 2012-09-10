@@ -262,7 +262,7 @@
 
     window.EquipementListView = Backbone.View.extend({
         tagName: 'ul',
-        className: 'equipements nav nav-stacked nav-tabs',
+        className: 'equipements nav nav-stacked nav-pills',
         addOne: function (equipement) {
             var equipementView = new EquipementView({ model: equipement });
             $(this.el).append(equipementView.render().el);

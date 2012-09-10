@@ -36,6 +36,7 @@
 
     window.EquipementView = Backbone.View.extend({
         template: "#equipement-template",
+        tagName: "li",
         initialize: function() {
             _.bindAll(this, 'render');
             this.initializeTemplate();
@@ -53,7 +54,7 @@
 
 var EquipementListView = Backbone.View.extend({
     tagName: 'ul',
-    className: 'equipements nav nav-list',
+    className: "equipements nav nav-tabs nav-stacked",
     addOne: function (equipement) {
         var equipementView = new EquipementView({ model: equipement });
          $(this.el).append(equipementView.render().el);
