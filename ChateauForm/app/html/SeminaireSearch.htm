@@ -13,6 +13,7 @@
     <link href="../img/favicon.ico" rel="icon" type="image/x-icon" />
     <link rel="stylesheet" href="../../lib/css/bootstrap.css">
     <link rel="stylesheet" href="../../lib/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="../css/application.css">
 <!--    <SCRIPT src="http://crm-web.integration.klee.lan.net/chateauform-avv/WebResources/new_/lib/js/jquery_1.8.0.js"></SCRIPT>-->
     <script src="../../lib/js/jquery-1.8.0.js"></script>
     <script src="../../lib/js/Modernizer.js"></script>
@@ -22,7 +23,7 @@
     <script src="../js/Equipement.js"></script>
 
     <script type="text/template" id="equipement-template">
-       <a href="#"><%= systemname %>  <%= name %> <%= nbChambreDisponible %> <%= description %> <i class="icon-chevron-right"></i></a>
+       <a href="#" description= '<%= description %>'><b><%= name %></b> <img src='<%= imgSrc %>' class="img-circle" width="75px"> <i class="icon-chevron-right pull-right"></i></a>
     </script>
     <script type="text/template" id="reservationDay-template">
        <td  rel="popover" id=<%= id%>> <a  class='reserveSingle btn <%= singleCssClass %>' href="#"><i class="icon-user"></i> <%= nbChambreDisponible %></a> 
@@ -37,7 +38,7 @@
     </script>
   </head>
 
-  <body>
+  <body class="bgApp">
     <!-- Barre de navigation.-->
 <div class="navbar navbar-inverse">
     <div class="navbar-inner">
@@ -64,16 +65,19 @@
 <!-- Contenu-->
     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="span2">
+        <div class="span3">
           <h2>Liste des maisons.</h2>
+          <br />
+          <br />
           <div id="maisons"></div>
+          <div id="calendar"></div>
         </div>
-        <div class="span10">
+        <div class="span9">
           <h1>Liste des maisons disponibles</h1>
           <div id="messages"></div>
-          <p class="lead">
+          <!-- <p class="lead">
               Cette page a pour but de trouver l'ensemble des maisons disponibles.
-          </p>
+          </p> -->
           <table id="reservations" class="table table-striped">
           </div>
         </div>
