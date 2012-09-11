@@ -16,6 +16,9 @@
             isActive: true,
             imgSrc: "../img/romainVille.jpg"
         },
+        initialize: function(){
+            this.set({'seminaireSalles': new window.SalleSeminaireListView(new window.SalleSeminaires(window.salleSeminairesData))});
+        },
         isFull: function (index) {
             return nbChambreDisponible > 0;
         },
@@ -58,6 +61,11 @@
                 typeEquipement: "Seminaire",
                 isReserved: false
             },
+            initialize: function(){
+                if(!this.get('isReserved')){
+                   this.set({'reservataireName': 'Libre'}); 
+                }
+            },
             reserve: function(){
                 if(this.get('isReserved')){
                     return false;
@@ -67,7 +75,22 @@
                 }
             }
         });
+//Salle se seminaire Data
+window.salleSeminairesData = [ 
+    {id: 0, name:"Salle des champions", description: "Superbe salle avec de jolies fenêtres."},
+    {id: 1, name:"Salle des warriors", description: "Superbe salle avec de jolies portes."},
+    {id: 2, name:"Salle des masters", description: "Superbe salle avec de jolies chaises."},
+    {id: 3, name:"Salle des rois", description: "Superbe salle avec de jolies tableaux."},
+    {id: 4, name:"Salle des reines", description: "Superbe salle avec de jolies tables."},
+    {id: 5, name:"Salle des dieux", description: "Superbe salle avec de jolies assiettes."},
+    {id: 6, name: "Salle des geux", description: "Superbe salle avec de jolies tapisseries."}
+];
 
+//Collection de reservation day.
+    window.SalleSeminaires = Backbone.Collection.extend({
+        model: SalleSeminaire,
+        url: "/equipements"
+    });
     //Alert Model.
     // Attributes;
     // Name => Alert
@@ -153,7 +176,7 @@
     //Collection de reservation day.
     window.ReservationDays = Backbone.Collection.extend({
         model: ReservationDay,
-        url: "/equipements"
+        url: "/reservations"
     });
 
 
@@ -239,6 +262,61 @@
             return this;
         }
     });
+
+    // Vue d'une liste de salle de séminaires.
+    window.EquipementListView = Backbone.View.extend({
+        tagName: 'ul',
+        className: 'equipements nav nav-stacked nav-pills',
+        addOne: function (equipement) {
+            var equipementView = new EquipementView({ model: equipement });
+            $(this.el).append(equipementView.render().el);
+        },
+        render: function () {
+           this.model.forEach(this.addOne, this);
+            return this;
+        }
+
+    });
+
+    //Vue d'une salle de séminaire.
+    window.SalleSeminaireView = Backbone.View.extend({
+        tagName: 'div',
+        template: "#salleSeminaire-template",
+        initialize: function () {
+            _.bindAll(this, 'render');
+            this.model.bind('change', this.render);
+            this.initializeTemplate();
+        },
+        initializeTemplate: function () {
+            this.template = _.template($(this.template).html());
+        },
+        events: {
+        "click": "reserve"
+        },
+        reserve: function(){
+            this.model.reserve();
+        },
+        render: function () {
+            $(this.el).html(this.template(this.model.toJSON()));
+            return this;
+        }
+    });
+
+     // Vue d'une liste de salle de séminaires.
+    window.SalleSeminaireListView = Backbone.View.extend({
+        tagName: 'div',
+        className: 'salleSeminaires',
+        addOne: function (salleSeminaire) {
+            var salleSeminaireView = new SalleSeminaireView({ model: salleSeminaire });
+            $(this.el).append(salleSeminaireView.render().el);
+        },
+        render: function () {
+           this.model.forEach(this.addOne, this);
+            return this;
+        }
+
+    });
+
     //Alert view.
     //Display a message on the page.
     //Uses a twitter Bootstrap alert.
@@ -259,21 +337,8 @@
             return this;
         }
     });
-
-    window.EquipementListView = Backbone.View.extend({
-        tagName: 'ul',
-        className: 'equipements nav nav-stacked nav-pills',
-        addOne: function (equipement) {
-            var equipementView = new EquipementView({ model: equipement });
-            $(this.el).append(equipementView.render().el);
-        },
-        render: function () {
-           this.model.forEach(this.addOne, this);
-            return this;
-        }
-
-    });
-
+    
+    //Vue d'un jour de réservation.
     window.ReservationDayView = Backbone.View.extend({
         tagName: 'td',
         template: "#reservationDay-template",
