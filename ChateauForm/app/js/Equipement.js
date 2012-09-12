@@ -328,6 +328,7 @@ window.salleSeminairesData = [
             $(this.el).append(salleSeminaireView.render().el);
         },
         render: function () {
+          $(this.el).empty();  
            this.model.forEach(this.addOne, this);
             return this;
         }
@@ -381,7 +382,7 @@ window.salleSeminairesData = [
         showSalleDetail: function(event){
             var ttl = this.model.get('name');
             var html = this.model.get('seminaireSalles').render().el;
-            $(event.target).popover({title: ttl, html: html});
+            $(event.target).popover({title: ttl, content: html, placement: "right"});
         },
         reserveSingle: function(){
             this.reserve(true);
