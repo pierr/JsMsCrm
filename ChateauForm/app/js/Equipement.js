@@ -96,6 +96,7 @@ window.salleSeminairesData = [
         model: SalleSeminaire,
         url: "/equipements"
     });
+
     //Alert Model.
     // Attributes;
     // Name => Alert
@@ -190,12 +191,38 @@ window.salleSeminairesData = [
         }
 
     });
+
     //Collection de reservation day.
     window.ReservationDays = Backbone.Collection.extend({
         model: ReservationDay,
         url: "/reservations"
     });
 
+    // Modele d'un calendrier d'ésuipement
+    window.EquipementCalendarLine = Backbone.Model.extend({
+            defaults: {
+                systemname: "equipementCalendarLine",
+                name: "Nom de l'équipement",
+                id: 0,
+                description: "Description de l'équipement",
+                isActive: true,
+                equipementId: 0 
+            },
+            initialize: function(){
+                if(!this.get('equipementView')){
+                     this.set({'equipementView': new EquipementView({model: new Equipement()})}); 
+                }
+                if(!this.get('reservationDayListView')){
+                    var res = new window.ReservationDays();
+                    res.reset(window.reservationDayData);
+                    var ressView = new window.ReservationDayListView({ model: res });
+                    this.set({'reservationDayListView':ressView}); 
+                }
+                if(!this.get('isReserved')){
+                   this.set({'reservataireName': 'Libre'}); 
+                }
+            }
+        });
 
 
     /*All the day data*/
@@ -420,7 +447,8 @@ window.salleSeminairesData = [
         }
 
     });
-
+    
+    // Vue d'une liste de hour de réservation.
     window.ReservationDayListView = Backbone.View.extend({
         className: 'equipements table table-striped',
         tagName: 'div',
@@ -510,6 +538,12 @@ window.salleSeminairesData = [
         var sallesView = new SalleSeminaireListView({model: salles});
         console.log("Salles Views");
         console.log(sallesView.render().el)
+        console.log("");
+        //Calendar lines
+        console.log("Calendar line.");
+        var a = new window.EquipementCalendarLine();
+        console.log(a.get('reservationDayListView').render().el);
+
     });
 
 })(jQuery);
