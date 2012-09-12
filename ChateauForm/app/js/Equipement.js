@@ -214,7 +214,7 @@ window.salleSeminairesData = [
                 }
                 if(!this.get('reservationDayListView')){
                     var res = new window.ReservationDays();
-                    res.reset(window.reservationDayData);
+                    res.reset(window.reservationDayData.slice(0,4));
                     var ressView = new window.ReservationDayListView({ model: res });
                     this.set({'reservationDayListView':ressView}); 
                 }
@@ -223,6 +223,12 @@ window.salleSeminairesData = [
                 }
             }
         });
+
+    //Collection de ligne de calendrier d'un équipement.
+    window.EquipementCalendarLines = Backbone.Collection.extend({
+        model: EquipementCalendarLine,
+        url: "/equipementCalendarLine"
+    });
 
 
     /*All the day data*/
@@ -450,13 +456,12 @@ window.salleSeminairesData = [
     
     // Vue d'une liste de hour de réservation.
     window.ReservationDayListView = Backbone.View.extend({
-        className: 'equipements table table-striped',
-        tagName: 'div',
+        className: 'equipements',
         addOne: function (reservation) {
             var reservationView = new ReservationDayView({ model: reservation });
             $(this.el).append(reservationView.render().el);
         },
-        render: function () {
+        oldrender: function () {
             // Get all the equipements ids.
             var dates = _.uniq(this.model.pluck("date"));
             console.log("Dates" + dates);
@@ -477,7 +482,52 @@ window.salleSeminairesData = [
                 $(this.el).append('</tr>');
             }, this);
             return this;
+        },
+        render: function () {
+            // Get all the equipements ids.
+            var ids = _.uniq(this.model.pluck("equipementId"));
+            ids.forEach(function (id) {
+                this.model.where({ equipementId: id }).forEach(this.addOne, this);
+            }, this);
+            return this;
         }
+    });
+
+
+    //Vue d'une salle de séminaire.
+    window.EquipementCalendarLineView = Backbone.View.extend({
+        tagName: 'tr',
+        template: "#equipementCalendarLine-template",
+        initialize: function () {
+            _.bindAll(this, 'render');
+            this.model.bind('change', this.render);
+            this.initializeTemplate();
+        },
+        initializeTemplate: function () {
+            this.template = _.template($(this.template).html());
+        },
+        events: {
+        },
+        render: function () {
+            $(this.el).html(this.template(this.model.toJSON()));
+            $(this.el).append(this.model.get('reservationDayListView').render().el);
+            return this;
+        }
+    });
+
+     // Vue d'une liste de salle de séminaires.
+    window.EquipementCalendarLinesView = Backbone.View.extend({
+        tagName: '<tbody>',
+        className: 'equipementCalendarLines',
+        addOne: function (equipementCalendarLine) {
+            var equipementCalendarLineView = new EquipementCalendarLineView({ model: equipementCalendarLine });
+            $(this.el).append(equipementCalendarLineView.render().el);
+        },
+        render: function () {
+           this.model.forEach(this.addOne, this);
+            return this;
+        }
+
     });
 
     /*
@@ -541,8 +591,13 @@ window.salleSeminairesData = [
         console.log("");
         //Calendar lines
         console.log("Calendar line.");
-        var a = new window.EquipementCalendarLine();
-        console.log(a.get('reservationDayListView').render().el);
+        var eqCl = new window.EquipementCalendarLine();
+        console.log(eqCl.get('reservationDayListView').render().el);
+        //Vue
+        var eqClV = new window.EquipementCalendarLineView({model: eqCl});   
+        console.log("Calendar line vue");
+        //console.log(eqClV.render().el);
+        $("table.calendar").append(eqClV.render().el);
 
     });
 
