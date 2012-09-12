@@ -1,3 +1,13 @@
 .bgApp{
 /*	background-color: rgb(207, 212, 218);*/
 }
+.center{
+	text-align: center;
+}
+
+a.center{
+	display: inline;
+}
+.decale{
+	top: 3px;
+}

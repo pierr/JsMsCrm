@@ -200,17 +200,17 @@ window.salleSeminairesData = [
 
     /*All the day data*/
     window.reservationDayData = [
-        { systemname: "equipement", date: new Date("1/10/2012"), id: 0, equipementId: 0, description: "Description 0", nbChambres: 10, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 0, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv", nbPlaceSeminaire: 10, isSeminaireFree: true },
-        { systemname: "equipement", date: new Date("2/10/2012"), id: 1, equipementId: 0, description: "Description 0 1", nbChambres: 5, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv", nbPlaceSeminaire: 55, isSeminaireFree: false },
-        { systemname: "equipement", date: new Date("3/10/2012"), id: 2, equipementId: 0, description: "Description 0 2", nbChambres: 4, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv", nbPlaceSeminaire: 44, isSeminaireFree: true  },
-        { systemname: "equipement", date: new Date("4/10/2012"), id: 3, equipementId: 0, description: "Description 0 3", nbChambres: 8, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv", nbPlaceSeminaire: 34, isSeminaireFree: false  },
-        { systemname: "equipement", date: new Date("1/10/2012"), id: 4, equipementId: 1, description: "Description 0", nbChambres: 3,nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv", nbPlaceSeminaire: 22, isSeminaireFree: true  },
-        { systemname: "equipement", date: new Date("2/10/2012"), id: 5, equipementId: 1, description: "Description 1", nbChambres: 2, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv", nbPlaceSeminaire: 10, isSeminaireFree: false  },
-        { systemname: "equipement", date: new Date("3/10/2012"), id: 6, equipementId: 1, description: "Description 2", nbChambres: 5, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 0, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv", nbPlaceSeminaire: 77, isSeminaireFree: true  },
-        { systemname: "equipement", date: new Date("4/10/2012"), id: 7, equipementId: 1, description: "Description 3", nbChambres: 10, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv",nbPlaceSeminaire: 88, isSeminaireFree: true  },
-        { systemname: "equipement", date: new Date("1/10/2012"), id: 8, equipementId: 2, description: "Description 0", nbChambres: 19, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv",nbPlaceSeminaire: 22, isSeminaireFree: true  },
-        { systemname: "equipement", date: new Date("2/10/2012"), id: 9, equipementId: 2, description: "Description 1", nbChambres: 2, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 0, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv" ,nbPlaceSeminaire: 37, isSeminaireFree: false },
-        { systemname: "equipement", date: new Date("3/10/2012"), id: 10, equipementId: 2, description: "Description 2", nbChambres: 6, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv", nbPlaceSeminaire: 10, isSeminaireFree: false  }
+        { systemname: "equipement", date: new Date("1/10/2012"), id: 0, equipementId: 0, description: "Description 0", nbChambres: 10, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 0, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv", nbPlaceSeminaire: 10, isSeminaireFree: true , name:"Château de Paris"},
+        { systemname: "equipement", date: new Date("2/10/2012"), id: 1, equipementId: 0, description: "Description 0 1", nbChambres: 5, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv", nbPlaceSeminaire: 55, isSeminaireFree: false , name:"Château de Lyon"},
+        { systemname: "equipement", date: new Date("3/10/2012"), id: 2, equipementId: 0, description: "Description 0 2", nbChambres: 4, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv", nbPlaceSeminaire: 44, isSeminaireFree: true  , name:"Château de Lille"},
+        { systemname: "equipement", date: new Date("4/10/2012"), id: 3, equipementId: 0, description: "Description 0 3", nbChambres: 8, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv", nbPlaceSeminaire: 34, isSeminaireFree: false  , name:"Château de Versailles"},
+        { systemname: "equipement", date: new Date("1/10/2012"), id: 4, equipementId: 1, description: "Description 0", nbChambres: 3,nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv", nbPlaceSeminaire: 22, isSeminaireFree: true  , name:"Château de Vincennes"},
+        { systemname: "equipement", date: new Date("2/10/2012"), id: 5, equipementId: 1, description: "Description 1", nbChambres: 2, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv", nbPlaceSeminaire: 10, isSeminaireFree: false  , name:"Château du Louvres"},
+        { systemname: "equipement", date: new Date("3/10/2012"), id: 6, equipementId: 1, description: "Description 2", nbChambres: 5, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 0, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv", nbPlaceSeminaire: 77, isSeminaireFree: true  , name:"Château de Rungis"},
+        { systemname: "equipement", date: new Date("4/10/2012"), id: 7, equipementId: 1, description: "Description 3", nbChambres: 10, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv",nbPlaceSeminaire: 88, isSeminaireFree: true  , name:"Château de Vélizy"},
+        { systemname: "equipement", date: new Date("1/10/2012"), id: 8, equipementId: 2, description: "Description 0", nbChambres: 19, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv",nbPlaceSeminaire: 22, isSeminaireFree: true  , name:"Château de Rouen"},
+        { systemname: "equipement", date: new Date("2/10/2012"), id: 9, equipementId: 2, description: "Description 1", nbChambres: 2, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 0, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv" ,nbPlaceSeminaire: 37, isSeminaireFree: false , name:"Château de Gilbert"},
+        { systemname: "equipement", date: new Date("3/10/2012"), id: 10, equipementId: 2, description: "Description 2", nbChambres: 6, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv", nbPlaceSeminaire: 10, isSeminaireFree: false , name:"Château de Sceaux" }
         //{ systemname: "equipement", date: new Date("4/10/2012"), id: 11, equipementId: 2, description: "Description 3", nbChambres: 1, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4,   : 5, typeEquipement: "Seminaire" }
     ];
 
@@ -367,8 +367,8 @@ window.salleSeminairesData = [
         },
         events: {
         "click a.reserveSingle": "reserveSingle",
-        "click a.reserveDouble": "reserveDouble",
-        "click a.pop": "showSalleDetail"
+        "click a.reserveDouble": "reserveDouble"
+        //"click a.pop": "showSalleDetail"
         },
 
         initializeTemplate: function () {
@@ -377,7 +377,13 @@ window.salleSeminairesData = [
         render: function () {
             //this.model.processSingleCssClass();
             $(this.el).html(this.template(this.model.toJSON()));
+            this.activateSallePopover();
             return this;
+        },
+        activateSallePopover: function(){
+            var ttl = this.model.get('name');
+            var html = this.model.get('seminaireSalles').render().el;
+            $(this.el).find("a.pop").popover({title: ttl, content: html, placement: "right"});
         },
         showSalleDetail: function(event){
             var ttl = this.model.get('name');
