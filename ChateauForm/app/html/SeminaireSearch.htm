@@ -22,14 +22,19 @@
     <script src="../../lib/js/bootstrap.js"></script>
     <script src="../js/Equipement.js"></script>
 
+    <!-- View of an equipement-->
     <script type="text/template" id="equipement-template">
        <a href="#" description= '<%= description %>'><b><%= name %></b> <img src='<%= imgSrc %>' class="img-circle" width="75px"> <i class="icon-chevron-right pull-right"></i></a>
     </script>
+    
+    <!-- View of a reservation Day.-->
     <script type="text/template" id="reservationDay-template">
        <a  class='reserveSingle btn <%= singleCssClass %>' href="#"><i class="icon-user"></i> <%= nbChambreDisponible %></a> 
        <a  class='reserveDouble btn <%= doubleCssClass %>' href="#"><i class="icon-user"></i><i class="icon-user"></i><%= nbChambreDoubleDisponible %></a> <br/><br />
         <div class="center decale"><a class='pop btn center <%= seminaireCssClass %>' href="#"><i class="icon-th-large"></i>   <%= nbPlaceSeminaire %>   </a> </div>     
     </script>
+
+    <!-- View of an alert -->
     <script type="text/template" id="alert-template">
        <div class='alert  alert-block  <%= cssClass %>'>
           <button type="button" class="close" data-dismiss="alert">×</button>
@@ -37,11 +42,14 @@
           <%= content   %>
         </div>
     </script>
+
+    <!-- View Salle de séminaire -->
     <script type="text/template" id="salleSeminaire-template">
       <span class="label label-inverse"><%= name %></span>
       <span class="label"><%= nbPlaces %></span>
       <span class="label <% if(isReserved) {print('label-important');} else{ print('label-info'); } %>"><%= reservataireName %></span>
     </script>
+    <!-- View Equipement calendar line.-->
     <script type="text/template" id="equipementCalendarLine-template">
       <td><%= name%></td>
     </script>
@@ -102,32 +110,8 @@
                   <th>12/10/2012</th>
                   <th>13/10/2012</th>                
                 </tr>
-              </thead>
-<!--               <tbody id="callines">
-                <tr>
-                  <td rowspan="2">1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@TwBootstrap</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td colspan="2">Larry the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
- -->            </table>
+              </thead>x
+            </table>
           </div>
         </div>
       </div>
