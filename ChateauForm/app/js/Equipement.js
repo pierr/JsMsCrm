@@ -1,4 +1,4 @@
-﻿(function ($) {
+(function ($) {
     //Modèle d'un équipement.
     window.Equipement = Backbone.Model.extend({
         defaults: {
@@ -456,6 +456,7 @@ window.salleSeminairesData = [
     
     // Vue d'une liste de hour de réservation.
     window.ReservationDayListView = Backbone.View.extend({
+        
         className: 'equipements',
         addOne: function (reservation) {
             var reservationView = new ReservationDayView({ model: reservation });
@@ -482,6 +483,10 @@ window.salleSeminairesData = [
                 $(this.el).append('</tr>');
             }, this);
             return this;
+        },
+        p_render: function(element){
+            this.setElement(element);
+            this.render();
         },
         render: function () {
             // Get all the equipements ids.
@@ -510,7 +515,7 @@ window.salleSeminairesData = [
         },
         render: function () {
             $(this.el).html(this.template(this.model.toJSON()));
-            $(this.el).append(this.model.get('reservationDayListView').render().el);
+            this.model.get('reservationDayListView').p_render($(this.el));
             return this;
         }
     });
@@ -593,9 +598,15 @@ window.salleSeminairesData = [
         console.log("Calendar line.");
         var eqCl = new window.EquipementCalendarLine();
         console.log(eqCl.get('reservationDayListView').render().el);
+        //console.log("Calendar line length: " + eqCl.get('reservationDayListView').model.length;
         //Vue
         var eqClV = new window.EquipementCalendarLineView({model: eqCl});   
         console.log("Calendar line vue");
+
+/*        var eqLns = [new window.EquipementCalendarLine({name: "pierre1"}),new window.EquipementCalendarLine({name: "pierre2"}),new window.EquipementCalendarLine({name: "pierre3"}),new window.EquipementCalendarLine({name: "pierre4"})];
+        var eqClnsV = new window.EquipementCalendarLinesView();
+        eqClnsV.reset(eqLns);
+  ¨*/      
         //console.log(eqClV.render().el);
         $("table.calendar").append(eqClV.render().el);
 
