@@ -1,10 +1,23 @@
 (function ($) {
+
+    //Helper functions
+    
+    //PArt of a guid.
+    function S4() {
+     return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+    };
+
+    // Alea guid generator.
+    function guid() {
+       return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+    };
+
     //Modèle d'un équipement.
     window.Equipement = Backbone.Model.extend({
         defaults: {
             systemname: "equipement",
             name: "Maison",
-            id: 0,
+            id: guid(),
             description: "Description",
             nbChambres: 0,
             nbChambreDouble: 0,
@@ -41,15 +54,15 @@
     // Modèle d'une collection d'équipement.
     window.Equipements = Backbone.Collection.extend({
         model: Equipement,
-        url: "/equipements"
+        url: "../js/json/equipements.json"
     });
 
     // Data equipement.
     window.equipementsData = [
-        { systemname: "equipement", imgSrc: "../img/campusBergeSeine.jpg",name: "Campus Les Berges de Seine", id: 0, description: "Description 0", nbChambres: 1, nbChambreDouble: 2, nbChambresReserves: 1, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Maison", nbPlaceSeminaire: 10 },
-        { systemname: "equipement", imgSrc: "../img/rochefort.jpg", name: "Château de Rochefort", id: 1, description: "Description 1", nbChambres: 1, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Maison" },
-        { systemname: "equipement", imgSrc: "../img/monceauRio.jpg", name: "Châteauform' City Monceau Rio ", id: 2, description: "Description 2", nbChambres: 1, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Maison" },
-        { systemname: "equipement", imgSrc: "../img/romainVille.jpg", name: "Château de Romainville", id: 3, description: "Description 3", nbChambres: 1, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Maison" }
+        { systemname: "equipement", imgSrc: "../img/campusBergeSeine.jpg",name: "Campus Les Berges de Seine",  description: "Description 0", nbChambres: 1, nbChambreDouble: 2, nbChambresReserves: 1, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Maison", nbPlaceSeminaire: 10 },
+        { systemname: "equipement", imgSrc: "../img/rochefort.jpg", name: "Château de Rochefort",  description: "Description 1", nbChambres: 1, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Maison" },
+        { systemname: "equipement", imgSrc: "../img/monceauRio.jpg", name: "Châteauform' City Monceau Rio ", description: "Description 2", nbChambres: 1, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Maison" },
+        { systemname: "equipement", imgSrc: "../img/romainVille.jpg", name: "Château de Romainville",  description: "Description 3", nbChambres: 1, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Maison" }
     ];
 
     //Modèle d'une salle de séminaire.
@@ -94,7 +107,7 @@ window.salleSeminairesData = [
 //Collection de reservation day.
     window.SalleSeminaires = Backbone.Collection.extend({
         model: SalleSeminaire,
-        url: "/equipements"
+        url: "../js/json//equipements"
     });
 
     //Alert Model.
@@ -279,7 +292,7 @@ window.salleSeminairesData = [
         { systemname: "equipement", date: new Date("5/11/2012"), id: 15, equipementId: 3, description: "Description 3", nbChambres: 1, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Seminaire dsdvdv" }
     ];
 
-    //window.Maisons  = new Equipements({collection: equipements});
+    //w../js/json/indow.Maisons  = new Equipements({collection: equipements});
 
     window.EquipementView = Backbone.View.extend({
         tagName: 'li',
@@ -316,7 +329,7 @@ window.salleSeminairesData = [
     // Vue d'une liste de salle de séminaires.
     window.EquipementListView = Backbone.View.extend({
         tagName: 'ul',
-        className: 'equipements nav nav-stacked nav-pills',
+        className: 'equipem../js/json/ents nav nav-stacked nav-pills',
         addOne: function (equipement) {
             var equipementView = new EquipementView({ model: equipement });
             $(this.el).append(equipementView.render().el);
