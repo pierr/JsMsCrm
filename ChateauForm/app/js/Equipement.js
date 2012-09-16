@@ -552,7 +552,7 @@ window.salleSeminairesData = [
 window.WorkspaceRouter = Backbone.Router.extend({
 
   routes: {
-    "": "home",
+    "": "index",
     "help":                 "help",    // #help
     "search/:query":        "search",  // #search/kiwis
     "search/:query/p:page": "search",
@@ -568,17 +568,21 @@ window.WorkspaceRouter = Backbone.Router.extend({
     this.eqCl = new window.EquipementCalendarLine();
     //console.log(eqCl.get('reservationDayListView').render().el);
     this.eqClV = new window.EquipementCalendarLineView({model: this.eqCl});
+    this.maisonsView.render();
+    this.eqClV.render();
   },
-  home: function(){
-    console.log("#home"); 
-    $('#maisons').append(this.maisonsView.render().el);
-    $("table.calendar").append(this.eqClV.render().el);   
+  index: function(){
+    console.log("#index"); 
+    $('#maisons').append(this.maisonsView.el);
+    $("table.calendar").append(this.eqClV.el);
   },
   help: function() {
     console.log("help");
   },
-  blank: function(){        
-    $("table.calendar").html("blank");
+  blank: function(){
+    console.log("blank");
+  $('#maisons').html("");        
+    $("table.calendar").html("");
   },
   search: function(query, page) {
     console.log("search");
@@ -613,7 +617,7 @@ window.WorkspaceRouter = Backbone.Router.extend({
     */
     $(document).ready(function () {
      window.app =  new WorkspaceRouter();
-     Backbone.history.start({pushState: true, root:"file:///Developer/Code/crm/JsMsCrm/ChateauForm/app/html/SeminaireSearch.htm/"});
+     Backbone.history.start({root:"file:///Developer/Code/crm/JsMsCrm/ChateauForm/app/html/SeminaireSearch.htm/"});
      app.navigate();
     //var p = new Equipement();
 //         var ev = new EquipementView({ model: p });
