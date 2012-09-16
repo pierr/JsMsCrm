@@ -12,12 +12,20 @@
        return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
     };
 
+    window.i =1;
+
+    function id(){
+        window.i = window.i + 1;
+        return window.i;
+    }
+
     //Modèle d'un équipement.
     window.Equipement = Backbone.Model.extend({
         defaults: {
             systemname: "equipement",
             name: "Maison",
-            id: guid(),
+            id: id(),
+            guid: guid(),
             description: "Description",
             nbChambres: 0,
             nbChambreDouble: 0,
@@ -31,6 +39,7 @@
             nbPlaceSeminaire: 10,
             isSeminaireFree: true
         },
+
         initialize: function(){
             var salles = new window.SalleSeminaires();
             salles.reset(window.salleSeminairesData);
@@ -563,7 +572,7 @@ window.WorkspaceRouter = Backbone.Router.extend({
     this.es = new Equipements();
     console.log("Eqpts:" +this.es.length);
     this.es.reset(equipementsData);
-    console.log("Eqpts:" + this.es.length);
+    console.log("Data: " + equipementsData.length + "  Eqpts:" + this.es.length);
     this.maisonsView = new EquipementListView({ model: this.es });
     this.eqCl = new window.EquipementCalendarLine();
     //console.log(eqCl.get('reservationDayListView').render().el);
