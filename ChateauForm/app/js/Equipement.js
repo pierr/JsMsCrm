@@ -548,6 +548,58 @@ window.salleSeminairesData = [
 
     });
 
+window.SearchEquipementRouter = new Backbone.Router.extend({
+    routes: {
+        "": "home" //http://localhost:22257/Theater/theater.htm
+    },  
+    initialize: function(){
+        console.log("@@@@@@@INITIALIZE@@@@@@@");
+    },
+    home: function(){
+        console.log("Calendar line.");
+        var eqCl = new window.EquipementCalendarLine();
+        console.log(eqCl.get('reservationDayListView').render().el);
+        var eqClV = new window.EquipementCalendarLineView({model: eqCl});   
+        console.log("Calendar line vue");
+        $("table.calendar").append(eqClV.render().el);
+    }
+});
+
+window.WorkspaceRouter = Backbone.Router.extend({
+
+  routes: {
+    "": "home",
+    "help":                 "help",    // #help
+    "search/:query":        "search",  // #search/kiwis
+    "search/:query/p:page": "search"   // #search/kiwis/p7
+  },
+  initialize: function(){
+    console.log("#initialize"); 
+    this.es = new Equipements();
+    console.log("Eqpts:" +this.es.length);
+    this.es.fetch();//reset(equipementsData);
+    console.log("Eqpts:" + this.es.length);
+    this.maisonsView = new EquipementListView({ model: this.es });
+    this.eqCl = new window.EquipementCalendarLine();
+    //console.log(eqCl.get('reservationDayListView').render().el);
+    this.eqClV = new window.EquipementCalendarLineView({model: this.eqCl});
+  },
+  home: function(){
+    console.log("#home"); 
+    $('#maisons').append(this.maisonsView.render().el);
+    $("table.calendar").append(this.eqClV.render().el);   
+  },
+  help: function() {
+    console.log("help");
+  },
+  blank: function(){        
+    $("table.calendar").html('');
+  },
+  search: function(query, page) {
+    console.log("search");
+  }
+
+});
     /*
     window.BackboneSearchEquipement = Backbone.Router.extend({
     routes: {
@@ -575,53 +627,56 @@ window.salleSeminairesData = [
 
     */
     $(document).ready(function () {
-        var p = new Equipement();
-        var ev = new EquipementView({ model: p });
-        // $('#maisons@').append(ev.render().el);
-        console.log("Maisons");
-        console.log(window.Maisons);
-        console.log("End maisons");
-        var es = new window.Equipements();
-        es.reset(window.equipementsData);
-        window.maisonsView = new window.EquipementListView({ model: es });
-        $('#maisons').append(window.maisonsView.render().el);
+     window.app =  new WorkspaceRouter();
+     Backbone.history.start({pushState: true});
+     app.navigate("home");
+    //var p = new Equipement();
+//         var ev = new EquipementView({ model: p });
+//         // $('#maisons@').append(ev.render().el);
+//         console.log("Maisons");
+//         console.log(window.Maisons);
+//         console.log("End maisons");
+//         var es = new window.Equipements();
+//         es.reset(window.equipementsData);
+//         window.maisonsView = new window.EquipementListView({ model: es });
+//         $('#maisons').append(window.maisonsView.render().el);
 
-        /*Process Reservations*/
-        var res = new window.ReservationDays();
-        console.log("Reservation day data length: " + window.reservationDayData.length);
-        res.reset(window.reservationDayData);
-        console.log("Reservation day model data length: " + res.model.toJSON);
+//         /*Process Reservations*/
+//         var res = new window.ReservationDays();
+//         console.log("Reservation day data length: " + window.reservationDayData.length);
+//         res.reset(window.reservationDayData);
+//         console.log("Reservation day model data length: " + res.model.toJSON);
     
-        window.reservationsView = new window.ReservationDayListView({ model: res });
-        $('#reservations').append(window.reservationsView.render().el);
-        console.log("Reservations");
-        console.log(window.reservationsView.el);
-        console.log("END Reservations");
+//         window.reservationsView = new window.ReservationDayListView({ model: res });
+//         $('#reservations').append(window.reservationsView.render().el);
+//         console.log("Reservations");
+//         console.log(window.reservationsView.el);
+//         console.log("END Reservations");
         
-        //Salles.
-        var salles = new SalleSeminaires({model: window.salleSeminairesData});
-        salles.reset(window.salleSeminairesData);
-        console.log('Salles');
-        console.log("Salles 0 - " +salles.at(0).get('name') + " Taille: " + salles.length + "  Derniere salle" + salles.at(salles.length -1).get('name')     )
-        var sallesView = new SalleSeminaireListView({model: salles});
-        console.log("Salles Views");
-        console.log(sallesView.render().el)
-        console.log("");
-        //Calendar lines
-        console.log("Calendar line.");
-        var eqCl = new window.EquipementCalendarLine();
-        console.log(eqCl.get('reservationDayListView').render().el);
-        //console.log("Calendar line length: " + eqCl.get('reservationDayListView').model.length;
-        //Vue
-        var eqClV = new window.EquipementCalendarLineView({model: eqCl});   
-        console.log("Calendar line vue");
+//         //Salles.
+//         var salles = new SalleSeminaires({model: window.salleSeminairesData});
+//         salles.reset(window.salleSeminairesData);
+//         console.log('Salles');
+//         console.log("Salles 0 - " +salles.at(0).get('name') + " Taille: " + salles.length + "  Derniere salle" + salles.at(salles.length -1).get('name')     )
+//         var sallesView = new SalleSeminaireListView({model: salles});
+//         console.log("Salles Views");
+//         console.log(sallesView.render().el)
+//         console.log("");
+//         //Calendar lines
+//         console.log("Calendar line.");
+//         var eqCl = new window.EquipementCalendarLine();
+//         console.log(eqCl.get('reservationDayListView').render().el);
+//         //console.log("Calendar line length: " + eqCl.get('reservationDayListView').model.length;
+//         //Vue
+//         var eqClV = new window.EquipementCalendarLineView({model: eqCl});   
+//         console.log("Calendar line vue");
 
-/*        var eqLns = [new window.EquipementCalendarLine({name: "pierre1"}),new window.EquipementCalendarLine({name: "pierre2"}),new window.EquipementCalendarLine({name: "pierre3"}),new window.EquipementCalendarLine({name: "pierre4"})];
-        var eqClnsV = new window.EquipementCalendarLinesView();
-        eqClnsV.reset(eqLns);
-  ¨*/      
-        //console.log(eqClV.render().el);
-        $("table.calendar").append(eqClV.render().el);
+// /*        var eqLns = [new window.EquipementCalendarLine({name: "pierre1"}),new window.EquipementCalendarLine({name: "pierre2"}),new window.EquipementCalendarLine({name: "pierre3"}),new window.EquipementCalendarLine({name: "pierre4"})];
+//         var eqClnsV = new window.EquipementCalendarLinesView();
+//         eqClnsV.reset(eqLns);
+//   ¨*/      
+//         //console.log(eqClV.render().el);
+//         $("table.calendar").append(eqClV.render().el);
 
     });
 
