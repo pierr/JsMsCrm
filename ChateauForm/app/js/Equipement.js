@@ -548,22 +548,6 @@ window.salleSeminairesData = [
 
     });
 
-window.SearchEquipementRouter = new Backbone.Router.extend({
-    routes: {
-        "": "home" //http://localhost:22257/Theater/theater.htm
-    },  
-    initialize: function(){
-        console.log("@@@@@@@INITIALIZE@@@@@@@");
-    },
-    home: function(){
-        console.log("Calendar line.");
-        var eqCl = new window.EquipementCalendarLine();
-        console.log(eqCl.get('reservationDayListView').render().el);
-        var eqClV = new window.EquipementCalendarLineView({model: eqCl});   
-        console.log("Calendar line vue");
-        $("table.calendar").append(eqClV.render().el);
-    }
-});
 
 window.WorkspaceRouter = Backbone.Router.extend({
 
@@ -571,13 +555,14 @@ window.WorkspaceRouter = Backbone.Router.extend({
     "": "home",
     "help":                 "help",    // #help
     "search/:query":        "search",  // #search/kiwis
-    "search/:query/p:page": "search"   // #search/kiwis/p7
+    "search/:query/p:page": "search",
+    "blank": "blank"   // #search/kiwis/p7
   },
   initialize: function(){
     console.log("#initialize"); 
     this.es = new Equipements();
     console.log("Eqpts:" +this.es.length);
-    this.es.fetch();//reset(equipementsData);
+    this.es.reset(equipementsData);
     console.log("Eqpts:" + this.es.length);
     this.maisonsView = new EquipementListView({ model: this.es });
     this.eqCl = new window.EquipementCalendarLine();
@@ -593,7 +578,7 @@ window.WorkspaceRouter = Backbone.Router.extend({
     console.log("help");
   },
   blank: function(){        
-    $("table.calendar").html('');
+    $("table.calendar").html("blank");
   },
   search: function(query, page) {
     console.log("search");
@@ -628,8 +613,8 @@ window.WorkspaceRouter = Backbone.Router.extend({
     */
     $(document).ready(function () {
      window.app =  new WorkspaceRouter();
-     Backbone.history.start({pushState: true});
-     app.navigate("home");
+     Backbone.history.start({pushState: true, root:"file:///Developer/Code/crm/JsMsCrm/ChateauForm/app/html/SeminaireSearch.htm/"});
+     app.navigate();
     //var p = new Equipement();
 //         var ev = new EquipementView({ model: p });
 //         // $('#maisons@').append(ev.render().el);
