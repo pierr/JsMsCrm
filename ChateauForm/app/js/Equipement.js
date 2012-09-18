@@ -68,10 +68,10 @@
 
     // Data equipement.
     window.equipementsData = [
-        { systemname: "equipement", imgSrc: "../img/campusBergeSeine.jpg",name: "Campus Les Berges de Seine",  description: "Description 0", nbChambres: 1, nbChambreDouble: 2, nbChambresReserves: 1, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Maison", nbPlaceSeminaire: 10 },
-        { systemname: "equipement", imgSrc: "../img/rochefort.jpg", name: "Château de Rochefort",  description: "Description 1", nbChambres: 1, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Maison" },
-        { systemname: "equipement", imgSrc: "../img/monceauRio.jpg", name: "Châteauform' City Monceau Rio ", description: "Description 2", nbChambres: 1, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Maison" },
-        { systemname: "equipement", imgSrc: "../img/romainVille.jpg", name: "Château de Romainville",  description: "Description 3", nbChambres: 1, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Maison" }
+        { id:1,systemname: "equipement", imgSrc: "../img/campusBergeSeine.jpg",name: "Campus Les Berges de Seine",  description: "Description 0", nbChambres: 1, nbChambreDouble: 2, nbChambresReserves: 1, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Maison", nbPlaceSeminaire: 10 },
+        { id:2,systemname: "equipement", imgSrc: "../img/rochefort.jpg", name: "Château de Rochefort",  description: "Description 1", nbChambres: 1, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Maison" },
+        { id:5, systemname: "equipement", imgSrc: "../img/monceauRio.jpg", name: "Châteauform' City Monceau Rio ", description: "Description 2", nbChambres: 1, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Maison" },
+        { id:6,systemname: "equipement", imgSrc: "../img/romainVille.jpg", name: "Château de Romainville",  description: "Description 3", nbChambres: 1, nbChambreDouble: 2, nbChambresReserves: 2, nbChambreDoubleReserves: 3, nbChambreDisponible: 4, nbChambreDoubleDisponible: 5, typeEquipement: "Maison" }
     ];
 
     //Modèle d'une salle de séminaire.
@@ -79,7 +79,7 @@
             defaults: {
                 systemname: "equipement",
                 name: "Salle de séminaire",
-                id: 0,
+                id: id(),
                 description: "Description de la salle de séminaire",
                 nbPlaces: 0,
                 reservataireId: 0,
@@ -142,15 +142,14 @@ window.salleSeminairesData = [
         }
     });
 
-
-
     //Reservation Dat Model.
     //Provide a model for the equipement reservation.
     window.ReservationDay = Backbone.Model.extend({
         defaults: {
             systemname: "reservation",
             name: "Jour de réservation",
-            id: 0,
+            id: id(),
+            guid: guid(),
             equipementId: 0,
             description: "Description de la réservation",
             date: new Date(),
@@ -225,7 +224,7 @@ window.salleSeminairesData = [
             defaults: {
                 systemname: "equipementCalendarLine",
                 name: "Nom de l'équipement",
-                id: 0,
+                id: id(),
                 description: "Description de l'équipement",
                 isActive: true,
                 equipementId: 0 
@@ -571,19 +570,34 @@ window.WorkspaceRouter = Backbone.Router.extend({
     console.log("#initialize"); 
     this.es = new Equipements();
     console.log("Eqpts:" +this.es.length);
-    this.es.reset(equipementsData);
-    console.log("Data: " + equipementsData.length + "  Eqpts:" + this.es.length);
+    this.es.reset(window.equipementsData);
+    console.log("Data: " + window.equipementsData.length + "  Eqpts:" + this.es.length);
     this.maisonsView = new EquipementListView({ model: this.es });
+    
     this.eqCl = new window.EquipementCalendarLine();
-    //console.log(eqCl.get('reservationDayListView').render().el);
     this.eqClV = new window.EquipementCalendarLineView({model: this.eqCl});
+    this.eqCl2 = new window.EquipementCalendarLine();
+    this.eqClV2 = new window.EquipementCalendarLineView({model: this.eqCl2});
+
     this.maisonsView.render();
     this.eqClV.render();
+    this.eqClV2.render();
+
+    this.eqClvs = new window.EquipementCalendarLines();
+    var data = [{name:"eqt1", description: "Pas beau", isActive:"true", equipementId:0},
+    {name:"eqt2", description: "Pas beau 2", isActive:"true", equipementId:0}, 
+    {name:"eqt3", description: "Pas beau 3", isActive:"true", equipementId:0}];
+    this.eqCl3 = new window.EquipementCalendarLine(data[0]);
+    this.eqClV3 = new window.EquipementCalendarLineView({model: this.eqCl3});
+    this.eqClV3.render();
+    
   },
   index: function(){
     console.log("#index"); 
     $('#maisons').append(this.maisonsView.el);
     $("table.calendar").append(this.eqClV.el);
+    $("table.calendar").append(this.eqClV2.el);
+    $("table.calendar").append(this.eqClV3.el);
   },
   help: function() {
     console.log("help");
