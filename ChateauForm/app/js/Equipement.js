@@ -219,6 +219,10 @@ window.salleSeminairesData = [
         url: "/reservations"
     });
 
+    function alea(a,b) {
+      return Math.floor(Math.random()*(b-a+1))+a
+   }
+
     // Modele d'un calendrier d'ésuipement
     window.EquipementCalendarLine = Backbone.Model.extend({
             defaults: {
@@ -235,7 +239,9 @@ window.salleSeminairesData = [
                 }
                 if(!this.get('reservationDayListView')){
                     var res = new window.ReservationDays();
-                    res.reset(window.reservationDayData.slice(0,4));
+                    var nbMin = alea(0,5);
+                    var nbMax = nbMin +4;
+                    res.reset(window.reservationDayData.slice(nbMin,nbMax));
                     var ressView = new window.ReservationDayListView({ model: res });
                     this.set({'reservationDayListView':ressView}); 
                 }
