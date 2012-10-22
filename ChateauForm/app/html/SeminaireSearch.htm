@@ -53,7 +53,41 @@
     <script type="text/template" id="equipementCalendarLine-template">
       <td><%= name%></td>
     </script>
+
     
+
+    <script type="text/template" id="searchForm-template">
+
+    <form>
+  <legend>Legend</legend>
+  <label>Label name</label>
+  <input type="text" placeholder="Type something…">
+  <span class="help-block">Example block-level help text here.</span>
+  <label class="checkbox">
+    <input type="checkbox"> Check me out
+  </label>
+  <button type="submit" class="btn">Submit</button>
+</form>
+      <form>
+      <legend>Recherche</legend>
+        <select  class="span3">
+          <option>Maison</option>
+          <option>Seminaire</option>
+        </select>
+        <input type="text" name="clientName" class="input-medium">
+        <input type="text" name="paysName" class="input-medium">
+        <input type="text" name="bassinName" class="input-medium">
+        <input type="text" name="nbJour" class="input-medium">
+        <input type="text" name="nbChambreSimple" class="input-medium">
+        <input type="text" name="nbChambreDouble" class="input-medium">
+        <input type="date" name="beginDate" class="input-medium">
+        <input type="date" name="endDate" class="input-medium">
+        <div data-role="content">
+            <a id="btnSearch" class="btn" type="submit" data-theme="b" href="#page1" data-iconpos="right">Search</a>
+        </div>
+      </form>
+    </script>
+
     
   </head>
 
@@ -96,6 +130,7 @@
         <div class="span9">
           <h1>Liste des maisons disponibles</h1>
           <div id="messages"></div>
+          <div id="recherche"></div>
           <!-- <p class="lead">
               Cette page a pour but de trouver l'ensemble des maisons disponibles.
           </p> -->
