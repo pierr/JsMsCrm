@@ -251,6 +251,8 @@ window.salleSeminairesData = [
             }
         });
 
+//Todo reservation line is a model.
+
     //Collection de ligne de calendrier d'un équipement.
     window.EquipementCalendarLines = Backbone.Collection.extend({
         model: EquipementCalendarLine,
