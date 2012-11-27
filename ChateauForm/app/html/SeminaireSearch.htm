@@ -53,7 +53,82 @@
     <script type="text/template" id="equipementCalendarLine-template">
       <td><%= name%></td>
     </script>
+
     
+
+    <script type="text/template" id="searchForm-template">
+      <form class="form-horizontal">
+       <legend>Recherche</legend>
+        <div class="row">
+          <div class="span3">
+          <!-- //Maison ou seminaire--> 
+            <div class="control-group">
+              <label class="control-label" for="typeBien">Type de bien</label>
+              <div class="controls">
+                <select id="typeBien">
+                  <option>Maison</option>
+                  <option>Seminaire</option>
+                </select>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="clientName">Client</label>
+              <div class="controls">
+                <input type="text" id="clientName" placeholder="Nom Prénom">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="paysName">Pays</label>
+              <div class="controls">
+                <input type="text" id="paysName" placeholder="Pays">
+              </div>
+            </div>
+          </div>
+          <div class="span3 offset1">  
+            <div class="control-group">
+              <label class="control-label" for="bassinName">Bassin</label>
+              <div class="controls">
+                <input type="text" id="bassinName" placeholder="Bassin">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="nbJour">Nb jour</label>
+              <div class="controls">
+                <input type="number" id="nbJour" placeholder="Nombre de jour">
+              </div>
+            </div>
+           <div class="control-group">
+              <label class="control-label" for="nbChambreSimple">Nb chambre simple</label>
+              <div class="controls">
+                <input type="number" id="nbChambreSimple" placeholder="Nombre de chambre simple">
+              </div>
+            </div>
+          </div>
+             <div class="span3 offset1">  
+            <div class="control-group">
+              <label class="control-label" for="nbChambreDouble">Nb de chambre double</label>
+              <div class="controls">
+                <input type="number" id="nbChambreDouble" placeholder="Nombre de chambre double">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="beginDate">Date de début</label>
+              <div class="controls">
+                <input type="date" id="beginDate" placeholder="Date de début">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="endDate">Date de fin</label>
+              <div class="controls">
+                <input type="date" id="endDate" placeholder="Date de fin">
+              </div>
+            </div>
+          </div>
+          </div>
+        <div class="row"></div>
+      </form>
+    </script>
+
     
   </head>
 
@@ -94,13 +169,13 @@
           <div id="calendar"></div>
         </div>
         <div class="span9">
-          <h1>Liste des maisons disponibles</h1>
-          <div id="messages"></div>
+         <div id="messages"></div>
+          <div id="recherche"></div>
           <!-- <p class="lead">
               Cette page a pour but de trouver l'ensemble des maisons disponibles.
           </p> -->
           <table id="reservations" class="table table-striped"></table>
-          <h2>Table</h2>
+          <legend>Liste des maisons disponibles</legend>
           <table class="table table-bordered calendar">
               <thead>
                 <tr>

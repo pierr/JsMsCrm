@@ -259,6 +259,25 @@ window.salleSeminairesData = [
         url: "/equipementCalendarLine"
     });
 
+    // Modele du formulaire de recherche.
+    window.SearchForm = Backbone.Model.extend({
+            defaults: {
+                id: id(),
+                clientId: null,
+                clientName: "Nom du client.",
+                bassinId: null,
+                bassinName: "Pas de nom de bassin.",
+                beginDate: null,
+                endDate: null,
+                nbJour: 1,
+                nbChambreSimple : 0,
+                nbChambreDouble : 0,
+                isMaison: true,
+                paysId: null,
+                paysName: "Pas de pays"
+            }
+        });
+
 
     /*All the day data*/
     window.reservationDayData = [
@@ -356,6 +375,48 @@ window.salleSeminairesData = [
         }
 
     });
+
+    /*
+    FIELDS: {
+                id: id()
+                clientId: null,
+                clientName: "Nom du client.",
+                bassinId: null,
+                bassinName: "Pas de nom de bassin.",
+                beginDate: null,
+                endDate: null,
+                nbJour: 1,
+                nbChambreSimple : 0,
+                nbChambreDouble : 0,
+                isMaison: true,
+                paysId: null,
+                paysName: "Pas de pays"
+        }
+    */
+    //Vue du formulaire de recherche.
+    window.SearchFormView = Backbone.View.extend({
+            
+        tagName: 'div',
+        template: "#searchForm-template",
+        initialize: function () {
+            _.bindAll(this, 'render');
+            this.model.bind('change', this.render);
+            this.initializeTemplate();
+        },
+        initializeTemplate: function () {
+            this.template = _.template($(this.template).html());
+        },
+        events: {
+        "click": "search"
+        },
+        search: function(){
+            console.log("Search");
+        },
+        render: function () {
+            $(this.el).html(this.template(this.model.toJSON()));
+            return this;
+        }
+        });
 
     //Vue d'une salle de séminaire.
     window.SalleSeminaireView = Backbone.View.extend({
@@ -575,6 +636,10 @@ window.WorkspaceRouter = Backbone.Router.extend({
     "blank": "blank"   // #search/kiwis/p7
   },
   initialize: function(){
+    this.fs = new SearchForm();
+    this.fsV = new SearchFormView({model: this.fs});
+    this.fsV.render();
+
     console.log("#initialize"); 
     this.es = new Equipements();
     console.log("Eqpts:" +this.es.length);
@@ -602,6 +667,7 @@ window.WorkspaceRouter = Backbone.Router.extend({
   },
   index: function(){
     console.log("#index"); 
+     $('#recherche').append(this.fsV.el);
     $('#maisons').append(this.maisonsView.el);
     $("table.calendar").append(this.eqClV.el);
     $("table.calendar").append(this.eqClV2.el);
